@@ -1,0 +1,19 @@
+TARGET_LETTERS = 'K'
+TARGET_NUMBERS = '12'
+TEST_FILE = 'test.png'
+MODEL_FILE = 'model.pickle'
+FONTS_FOLDER = 'fonts'  # use this for latin letters
+# FONTS_FOLDER = 'save_fonts' # use this for cyrillic letters
+DATASET_FOLDER = 'dataset'
+
+# old config
+TARGET_ARRAY = [*TARGET_NUMBERS, *TARGET_LETTERS]
+RESULTS_MAP = dict(zip(TARGET_ARRAY, range(len(TARGET_ARRAY))))
+IMAGE_SIZE = 28
+ITER_COUNT = 30000
+ALPHA = 0.2
+INPUT_SIZE = IMAGE_SIZE ** 2
+HIDDEN_SIZE = INPUT_SIZE // 5
+OUTPUT_SIZE = len(RESULTS_MAP)
+STRUCTURE = [INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE]
+SIZE = (IMAGE_SIZE, IMAGE_SIZE)
