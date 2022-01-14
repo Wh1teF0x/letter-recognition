@@ -1,6 +1,6 @@
 TARGET_LETTERS = 'K'
 TARGET_NUMBERS = '12'
-TEST_FILE = 'test1.png'
+TEST_FILE = 'test.png'
 MODEL_FILE = 'model.pickle'
 FONTS_FOLDER = 'fonts'
 DATASET_FOLDER = 'dataset'
