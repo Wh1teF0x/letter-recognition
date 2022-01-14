@@ -5,7 +5,6 @@ import warnings
 import cv2
 import numpy as np
 
-import image_helper
 from config import *
 
 
@@ -45,7 +44,8 @@ class Model:
         for letter in letters:
             items = os.listdir(f'{DATASET_FOLDER}/{letter}')
             for item in items:
-                data_item = (cv2.imread(f'{DATASET_FOLDER}/{letter}/{item}', cv2.IMREAD_GRAYSCALE) / 255).flatten()
+                data_item = cv2.imdecode(np.fromfile(f'{DATASET_FOLDER}/{letter}/{item}', dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+                data_item = (data_item / 255).flatten()
                 data_target = np.zeros(OUTPUT_SIZE)
                 data_target[OUTPUTS_MAP[letter]] = 1
                 self.data.append(data_item)
@@ -73,7 +73,7 @@ class Model:
 
     def predict_y(self, X, prepare=True):
         if prepare:
-            X = cv2.bitwise_not(X)
+            X = np.invert(X)
             X = X / 255
             X = X.flatten()
         layer_0 = X
@@ -82,24 +82,8 @@ class Model:
         return np.argmax(layer_2)
 
 
-def test_train():
+if __name__ == '__main__':
     model = Model()
     model.load_train_data(DATASET_FOLDER)
     model.train()
     model.save_model()
-
-
-def test_predict():
-    letters = image_helper.letters_extract(TEST_FILE)
-    out = image_helper.contour_letters(TEST_FILE)
-    model = Model()
-    model.load_model(MODEL_FILE)
-    for letter in letters:
-        cv2.imshow(f'{letter[2][1]}', letter[2])
-        prediction = model.predict_y(letter[2].flatten())
-        print(prediction)
-        value = TARGET_ARRAY[prediction[0]]
-        cv2.putText(out, f'{value}', (letter[0], letter[1] + 28), cv2.FONT_HERSHEY_SIMPLEX, 0.25, 0, 1)
-    out = cv2.resize(out, (out.shape[1] * 2, out.shape[0] * 2))
-    cv2.imshow('out', out)
-    cv2.waitKey(0)

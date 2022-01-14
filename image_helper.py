@@ -34,7 +34,7 @@ def letters_extract(image_file=None, image_object=None, out_size=IMAGE_SIZE):
             else:
                 letter_square = letter_crop
             letter_square = cv2.resize(letter_square, (out_size, out_size), interpolation=cv2.INTER_AREA)
-            letters.append((x, w, letter_square))
+            letters.append((x, y, letter_square))
     letters.sort(key=lambda letter_pos: letter_pos[0], reverse=False)
     return letters
 

@@ -1,9 +1,9 @@
-TARGET_LETTERS = 'K'
-TARGET_NUMBERS = '12'
-TEST_FILE = 'test.png'
+TARGET_LETTERS = 'KМ'
+TARGET_NUMBERS = '134'
 MODEL_FILE = 'model.pickle'
 FONTS_FOLDER = 'fonts'
 DATASET_FOLDER = 'dataset'
+TEST_FILES = ['test1.png', 'test2.png']
 
 IMAGE_SIZE = 28
 SIZE = (IMAGE_SIZE, IMAGE_SIZE)
